@@ -3,67 +3,95 @@
 import uuid from 'uuid/v4';
 
 const { registerBlockType } = wp.blocks;
-
 console.log( 'registerBlockType' );
-
-const id = uuid();
-
 let loadingMathJax = false;
 
-const renderMathML = () => {
-	MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub, id ] );
+const renderMathML = ( id ) => {
+	console.log( 'renderMathML', id, document.getElementById( id ) );
+	setTimeout( () => {
+		MathJax.Hub.Queue( [ "Typeset", MathJax.Hub, document.getElementById( id ) ] );
+	}, 100 );
 };
 
-const loadAndRenderMathML = () => {
-	if ( ! MathJax &&  ! loadingMathJax ) {
-		loadingMathJax = true;
-		(function () {
-			var script = document.createElement( 'script' );
-			script.type = 'text/javascript';
-			script.src  = 'https://example.com/MathJax.js?config=TeX-AMS-MML_CHTML';
-			script.onload = renderMathML;
-			document.getElementsByTagName( 'head' )[0].appendChild( script );
-		})();
+const loadAndRenderMathML = ( id ) => {
+	console.log( 'loadAndRenderMathML!!', id );
+	if ( 'undefined' === typeof MathJax ) {
+		if ( ! loadingMathJax ) {
+			loadingMathJax = true;
+			( function() {
+				var script = document.createElement( 'script' );
+				script.type = 'text/javascript';
+				script.src  = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+				script.onload = renderMathML;
+				document.getElementsByTagName( 'head' )[0].appendChild( script );
+			}() );
+		} else {
+			setTimeout( () => {
+				loadAndRenderMathML( id );
+			}, 500 );
+		}
 	} else {
-		renderMathML();
+		renderMathML( id );
 	}
 };
 
-registerBlockType( 'mathml', {
+registerBlockType( 'mathml/mathmlblock', {
 	title: 'MathML',
 	icon: 'list-view',
-	category: 'inline',
+	category: 'common',
 	attributes: {
 		formula: {
-			source: 'children',
-			selector: 'p',
+			source: 'html',
+			selector: 'div',
 			type: 'string',
 		},
-	}
+	},
 
-	edit = ( { isSelected, attributes, setAttributes, className } ) => {
+	edit: ( props ) => {
+
+		const { isSelected, attributes, setAttributes, className } = props;
 		const { formula } = attributes;
+		const id = uuid();
 
-		loadAndRenderMathML();
+		loadAndRenderMathML( id );
 
 		if ( isSelected ) {
 			return (
 				<div className={ className }>
-					<RichText
-					className="mathml-formula"
-					value={ formula }
-					onChange={ ( content ) => setAttributes( { content } ) } />
+					<textarea
+						className="mathml-formula"
+						tagname="div"
+						onChange={ ( event ) => {
+							setAttributes( { formula: event.target.value } );
+						} }
+						value={ formula }
+						style={ { width: '100%' } }
+					/>
 				</div>
 			);
-			} else {
-				return <div id={ id } className="mathml-block">{ formula }</div>
-			}
+		} else {
+			console.log( 'div', id  );
+			return (
+				<div
+					id={ id }
+					className="mathml-block"
+				>
+					{ formula }
+				</div>
+			);
+		}
 	},
 
-	save( { attributes } ) {
+	save: function save( { attributes, className } ) {
 		const { formula } = attributes;
+
+		//console.log( 'formula', formula, className );
 		return (
-			<p id={ id } className="mathml-block">{ formula }</p>
-		);	},
+			<div className={ className }>
+				{ formula }
+			</div>
+		);
+	},
 } );
+
 
