@@ -3,18 +3,17 @@
 import uuid from 'uuid/v4';
 
 const { registerBlockType } = wp.blocks;
-console.log( 'registerBlockType' );
+
 let loadingMathJax = false;
 
 const renderMathML = ( id ) => {
-	console.log( 'renderMathML', id, document.getElementById( id ) );
+
 	setTimeout( () => {
-		MathJax.Hub.Queue( [ "Typeset", MathJax.Hub, document.getElementById( id ) ] );
+		MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub, document.getElementById( id ) ] );
 	}, 100 );
 };
 
 const loadAndRenderMathML = ( id ) => {
-	console.log( 'loadAndRenderMathML!!', id );
 	if ( 'undefined' === typeof MathJax ) {
 		if ( ! loadingMathJax ) {
 			loadingMathJax = true;
@@ -70,7 +69,6 @@ registerBlockType( 'mathml/mathmlblock', {
 				</div>
 			);
 		} else {
-			console.log( 'div', id  );
 			return (
 				<div
 					id={ id }
@@ -85,7 +83,6 @@ registerBlockType( 'mathml/mathmlblock', {
 	save: function save( { attributes, className } ) {
 		const { formula } = attributes;
 
-		//console.log( 'formula', formula, className );
 		return (
 			<div className={ className }>
 				{ formula }
