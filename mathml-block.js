@@ -1,6 +1,7 @@
 
 /* global MathJax */
 import uuid from 'uuid/v4';
+import { __ } from '@wordpress/i18n';
 
 const { registerBlockType } = wp.blocks;
 
@@ -57,7 +58,9 @@ registerBlockType( 'mathml/mathmlblock', {
 		if ( isSelected ) {
 			return (
 				<div className={ className }>
+					<label htmlFor={ id }>{ __( 'MathML formula:', 'mathml-block' ) }</label>
 					<textarea
+						id={ id }
 						className="mathml-formula"
 						tagname="div"
 						onChange={ ( event ) => {
