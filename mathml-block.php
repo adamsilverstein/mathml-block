@@ -14,7 +14,11 @@
  *
  * @package mathml-block
  */
+namespace MathMLBlock;
 
+ /**
+  * Enqueue the admin JavaScript assets.
+  */
 function mathml_block_enqueue_scripts() {
 	wp_enqueue_script(
 		'mathml-block',
@@ -24,4 +28,28 @@ function mathml_block_enqueue_scripts() {
 		true
 	);
 }
-add_action( 'admin_enqueue_scripts', 'mathml_block_enqueue_scripts' );
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
+
+
+/**
+ * Potentially enqueue the front end mathjax script, if any mathml blocks are detected in the content.
+ */
+function potentially_add_front_end_mathjax_script() {
+	global $post;
+
+	// Only apply on singular pages.
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	// Check the content for mathml blocks.
+	$has_mathml_block = strpos( $post->post_content, ' wp:mathml/mathmlblock' );
+	if ( false === $has_mathml_block ) {
+		return;
+	}
+
+	// Enqueue the MathJax script for front end formula display.
+	wp_register_script( 'mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' );
+	wp_enqueue_script( 'mathjax' );
+}
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
