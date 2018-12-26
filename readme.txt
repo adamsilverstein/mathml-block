@@ -18,6 +18,8 @@ A MathML block for the WordPress block editor (Gutenberg).
 A MathML block for the WordPress block editor (Gutenberg).
 Requires PHP 5.4+ and WordPress 5.0+.
 
+Development takes place on the GitHub repository: https://github.com/adamsilverstein/mathml-block.
+
 Screencast:
 ![](https://cl.ly/c0f6bbfbc3b1/Screen%252520Recording%2525202018-12-25%252520at%25252008.12%252520AM.gif)
 
@@ -31,6 +33,7 @@ The MathML lock uses MathJax to render MathML formulas in the editor and on the 
 
 * Requires PHP 5.4+.
 * Requires WordPress 5.0+.
+* Issues and Pull requests welcome on the GitHub repository: https://github.com/adamsilverstein/mathml-block.
 
 == Screenshots ==
 

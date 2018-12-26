@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name:       MathML Block for Gutenberg
+ * Plugin Name:       MathML block.
  * Description:       Display MathML formulas.
  * Version:           1.0.0
  * Requires at least: 5.0.0
- * Tested up to:      5.0.0
+ * Tested up to:      5.0.2
  * Requires PHP:      5.4
  * Stable tag:        5.0.0
  * Author:            adamsilverstein
@@ -27,9 +27,16 @@ function mathml_block_enqueue_scripts() {
 		'',
 		true
 	);
+	wp_enqueue_script(
+		'mathjax',
+		plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js',
+		array( '' ),
+		'',
+		true
+	);
+
 }
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
-
 
 /**
  * Potentially enqueue the front end mathjax script, if any mathml blocks are detected in the content.
@@ -49,7 +56,8 @@ function potentially_add_front_end_mathjax_script() {
 	}
 
 	// Enqueue the MathJax script for front end formula display.
-	wp_register_script( 'mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' );
+	wp_register_script( 'mathjax', plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=TeX-MML-AM_CHTML' );
+
 	wp_enqueue_script( 'mathjax' );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
