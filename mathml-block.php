@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name:       MathML Block for Gutenberg
+ * Plugin Name:       MathML block.
  * Description:       Display MathML formulas.
  * Version:           1.0.0
  * Requires at least: 5.0.0
- * Tested up to:      5.0.0
+ * Tested up to:      5.0.2
  * Requires PHP:      5.4
  * Stable tag:        5.0.0
  * Author:            adamsilverstein
