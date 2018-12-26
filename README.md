@@ -1,4 +1,4 @@
-# A MathML Block for Gutenberg, the WordPress block editor.
+# A MathML block for the WordPress block editor (Gutenberg).
 
 ## Description
 
