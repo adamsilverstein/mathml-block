@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       MathML block.
  * Description:       Display MathML formulas.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.0.0
  * Tested up to:      5.0.2
  * Requires PHP:      5.4
@@ -20,13 +20,15 @@ namespace MathMLBlock;
   * Enqueue the admin JavaScript assets.
   */
 function mathml_block_enqueue_scripts() {
+
 	wp_enqueue_script(
 		'mathml-block',
 		plugin_dir_url( __FILE__ ) . 'dist/mathml-block.js',
-		array( 'wp-blocks' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-editor' ),
 		'',
 		true
 	);
+
 	wp_enqueue_script(
 		'mathjax',
 		plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'
@@ -47,14 +49,15 @@ function potentially_add_front_end_mathjax_script() {
 	}
 
 	// Check the content for mathml blocks.
-	$has_mathml_block = strpos( $post->post_content, ' wp:mathml/mathmlblock' );
+	$has_mathml_block = strpos( $post->post_content, 'wp:mathml/mathmlblock' );
+	$has_mathml_inline = strpos( $post->post_content, '<math>' );
 	if ( false === $has_mathml_block ) {
 		return;
 	}
 
 	// Enqueue the MathJax script for front end formula display.
 	wp_register_script( 'mathjax', plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=TeX-MML-AM_CHTML' );
-
 	wp_enqueue_script( 'mathjax' );
+
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
