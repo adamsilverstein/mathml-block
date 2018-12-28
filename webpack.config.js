@@ -6,7 +6,7 @@ module.exports = [
 
 	// Build the settings js..
 	{
-		entry:   './mathml-block.js',
+		entry: [ './src/mathml-block.js', './src/mathml-inline.js' ],
 		output: {
 			filename: 'mathml-block.js',
 			path: __dirname + '/dist/',
@@ -32,6 +32,10 @@ module.exports = [
 							}
 						}
 					]
+				},
+				{
+					test: /\.css$/,
+					use: [ 'style-loader', 'css-loader' ],
 				},
 			]
 		},
