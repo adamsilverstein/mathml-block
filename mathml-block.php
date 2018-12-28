@@ -29,10 +29,7 @@ function mathml_block_enqueue_scripts() {
 	);
 	wp_enqueue_script(
 		'mathjax',
-		plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js',
-		array( '' ),
-		'',
-		true
+		plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'
 	);
 
 }
