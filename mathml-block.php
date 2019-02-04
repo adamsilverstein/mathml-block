@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       MathML block.
+ * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
  * Version:           1.1.0
  * Requires at least: 5.0.0
