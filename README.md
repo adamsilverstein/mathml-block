@@ -9,7 +9,7 @@
 
 Mathematical Markup Language is a mathematical markup language, an application of XML for describing mathematical notations and capturing both its structure and content. It aims at integrating mathematical formulae into World Wide Web pages and other documents.
 
-The MathML lock uses MathJax to render MathML formulas in the editor and on the front end of a website. MathJax (https://www.mathjax.org/) is _A JavaScript display engine for mathematics that works in all browsers._
+The MathML block uses MathJax to render MathML formulas in the editor and on the front end of a website. MathJax (https://www.mathjax.org/) is _A JavaScript display engine for mathematics that works in all browsers._
 
 To test a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}\]`.
 
