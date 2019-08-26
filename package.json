@@ -11,27 +11,27 @@
   "author": "",
   "license": "GPL-2.0",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel": "^6.23.0",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
-    "css-loader": "^2.1.0",
-    "eslint": "^5.11.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.2.2",
     "eslint-config-wordpress": "^2.0.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "lodash": "^4.17.11",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "style-loader": "^0.23.1",
-    "uuid": "^3.3.2",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2",
-    "webpackbar": "^3.1.4"
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-react": "^7.14.3",
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "style-loader": "^1.0.0",
+    "uuid": "^3.3.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "@wordpress/i18n": "^3.1.0"
+    "@wordpress/i18n": "^3.6.0"
   }
 }
