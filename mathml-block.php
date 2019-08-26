@@ -41,7 +41,7 @@ add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\mathml_block_enqueue_scri
 function mathml_set_up_js_translations() {
 	wp_set_script_translations( 'mathml-block', 'mathml-block' );
 }
-add_action( 'init', 'mathml_set_up_js_translations' );
+add_action( 'init', __NAMESPACE__ . '\mathml_set_up_js_translations' );
 
 /**
  * Potentially enqueue the front end mathjax script, if any mathml blocks are detected in the content.
