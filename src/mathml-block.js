@@ -1,5 +1,3 @@
-
-/* global MathJax */
 import uuid from 'uuid/v4';
 
 const { __ }                = wp.i18n;
