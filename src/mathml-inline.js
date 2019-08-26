@@ -1,12 +1,13 @@
 const { createElement, Fragment } = window.wp.element;
 const { registerFormatType, toggleFormat } = window.wp.richText;
 const { RichTextToolbarButton, RichTextShortcut } = window.wp.editor;
+const { __ } = window.wp.i18n;
 import './mathml-block.css';
 
 [
 	{
 		name: 'mathml',
-		title: 'MathML',
+		title: __( 'MathML', 'mathml-block' ),
 		character: 'm'
 	},
 
