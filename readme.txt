@@ -50,6 +50,10 @@ To test using math formulas inline, type an formula into a block of text, select
 
 == Changelog ==
 
+= 1.1.1 =
+* Improve translations, make JavaScript translatable.
+* Update all packages.
+
 = 1.1.0 =
 * Add support for inline formulas.
 

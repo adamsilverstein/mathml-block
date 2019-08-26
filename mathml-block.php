@@ -2,11 +2,11 @@
 /**
  * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 5.0.0
- * Tested up to:      5.0.2
+ * Tested up to:      5.2.0
  * Requires PHP:      5.4
- * Stable tag:        5.0.0
+ * Stable tag:        5.2.0
  * Author:            adamsilverstein
  * Author URI:        http://tunedin.net
  * License:           GPLv2 or later
