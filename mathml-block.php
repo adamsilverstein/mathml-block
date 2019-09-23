@@ -66,4 +66,4 @@ function potentially_add_front_end_mathjax_script() {
 	wp_enqueue_script( 'mathjax' );
 
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
