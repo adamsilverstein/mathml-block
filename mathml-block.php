@@ -35,7 +35,7 @@ function mathml_block_enqueue_scripts() {
 	);
 
 }
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
 
 // Maka JavaScript translatable.
 function mathml_set_up_js_translations() {
@@ -55,9 +55,9 @@ function potentially_add_front_end_mathjax_script() {
 	}
 
 	// Check the content for mathml blocks.
-	$has_mathml_block = strpos( $post->post_content, 'wp:mathml/mathmlblock' );
-	$has_mathml_inline = strpos( $post->post_content, '<math>' );
-	if ( false === $has_mathml_block ) {
+	$has_mathml_block  = strpos( $post->post_content, 'wp:mathml/mathmlblock' );
+	$has_mathml_inline = strpos( $post->post_content, '<mathml>' );
+	if ( false === $has_mathml_block && false === $has_mathml_inline ) {
 		return;
 	}
 
@@ -66,4 +66,4 @@ function potentially_add_front_end_mathjax_script() {
 	wp_enqueue_script( 'mathjax' );
 
 }
-add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
