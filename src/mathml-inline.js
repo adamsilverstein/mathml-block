@@ -1,6 +1,6 @@
 const { createElement, Fragment } = window.wp.element;
 const { registerFormatType, toggleFormat } = window.wp.richText;
-const { RichTextToolbarButton, RichTextShortcut } = window.wp.editor;
+const { RichTextToolbarButton, RichTextShortcut } = window.wp.blockEditor;
 const { __ } = window.wp.i18n;
 import './mathml-block.css';
 
