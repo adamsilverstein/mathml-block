@@ -61,8 +61,11 @@ function potentially_add_front_end_mathjax_script() {
 		return;
 	}
 
+	// Filter the MathJax config string.
+	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
+
 	// Enqueue the MathJax script for front end formula display.
-	wp_register_script( 'mathjax', plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=TeX-MML-AM_CHTML' );
+	wp_register_script( 'mathjax', plugin_dir_url( __FILE__ ) . 'vendor/MathJax/MathJax.js?config=' . $config_string );
 	wp_enqueue_script( 'mathjax' );
 
 }
