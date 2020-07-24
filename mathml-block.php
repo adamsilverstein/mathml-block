@@ -29,6 +29,9 @@ function mathml_block_enqueue_scripts() {
 		true
 	);
 
+	// Maka JavaScript translatable.
+	wp_set_script_translations( 'mathml-block', 'mathml-block' );
+
 	// Filter the MathJax config string.
 	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
 
@@ -39,12 +42,6 @@ function mathml_block_enqueue_scripts() {
 
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
-
-// Maka JavaScript translatable.
-function mathml_set_up_js_translations() {
-	wp_set_script_translations( 'mathml-block', 'mathml-block' );
-}
-add_action( 'init', __NAMESPACE__ . '\mathml_set_up_js_translations' );
 
 /**
  * Potentially enqueue the front end mathjax script, if any mathml blocks are detected in the content.
