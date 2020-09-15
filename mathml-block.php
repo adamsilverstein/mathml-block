@@ -102,6 +102,21 @@ function register_block() {
 add_action( 'init', __NAMESPACE__ . '\register_block' );
 
 /**
+ * Add async attribute to MathJax script tag.
+ *
+ * @param string $tag    Script tag.
+ * @param string $handle Script handle.
+ *
+ * @return string Script tag.
+ */
+function add_async_to_mathjax_script_loader_tag( $tag, $handle ) {
+	if ( MATHJAX_SCRIPT_HANDLE === $handle ) {
+		$tag = preg_replace( '/(?<=<script\s)/', ' async ', $tag );
+	}
+	return $tag;
+}
+
+/**
  * Render block.
  *
  * Creates an <amp-mathml> element on AMP responses.
@@ -146,7 +161,9 @@ function render_block( $attributes, $content = '' ) {
 		// Enqueue the MathJax script for front end formula display.
 		wp_register_script( MATHJAX_SCRIPT_HANDLE, 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=' . $config_string, array(), null, false );
 		ob_start();
-		wp_print_scripts( MATHJAX_SCRIPT_HANDLE );
+		add_filter( 'script_loader_tag', __NAMESPACE__ . '\add_async_to_mathjax_script_loader_tag', 10, 2 );
+		wp_scripts()->do_items( MATHJAX_SCRIPT_HANDLE );
+		remove_filter( 'script_loader_tag', __NAMESPACE__ . '\add_async_to_mathjax_script_loader_tag' );
 		$scripts = ob_get_clean();
 
 		$content = $matches['start_div'] . $matches['formula'] . $scripts . $matches['end_div'];
