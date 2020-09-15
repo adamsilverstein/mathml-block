@@ -21,6 +21,8 @@ use WP_Block_Type_Registry;
 
 const BLOCK_NAME = 'mathml/mathmlblock';
 
+const MATHJAX_SCRIPT_HANDLE = 'mathjax';
+
 /**
  * Determine whether the response will be an AMP page.
  *
@@ -63,34 +65,6 @@ function mathml_set_up_js_translations() {
 	wp_set_script_translations( 'mathml-block', 'mathml-block' );
 }
 add_action( 'init', __NAMESPACE__ . '\mathml_set_up_js_translations' );
-
-/**
- * Potentially enqueue the front end mathjax script, if any mathml blocks are detected in the content.
- */
-function potentially_add_front_end_mathjax_script() {
-	global $post;
-
-	// Only apply on singular pages which are not served as AMP.
-	if ( ! is_singular() || is_amp() ) {
-		return;
-	}
-
-	// Check the content for mathml blocks.
-	$has_mathml_block  = strpos( $post->post_content, 'wp:' . BLOCK_NAME );
-	$has_mathml_inline = strpos( $post->post_content, '<mathml>' );
-	if ( false === $has_mathml_block && false === $has_mathml_inline ) {
-		return;
-	}
-
-	// Filter the MathJax config string.
-	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
-
-	// Enqueue the MathJax script for front end formula display.
-	wp_register_script( 'mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=' . $config_string );
-	wp_enqueue_script( 'mathjax' );
-
-}
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
 
 /**
  * Register block.
@@ -138,7 +112,11 @@ add_action( 'init', __NAMESPACE__ . '\register_block' );
  * @return string Rendered block.
  */
 function render_block( $attributes, $content = '' ) {
-	if ( is_amp() && preg_match( '#^(?P<start_div>\s*<div.*?>)(?P<formula>.+)(?P<end_div></div>\s*)$#s', $content, $matches ) ) {
+	if ( ! preg_match( '#^(?P<start_div>\s*<div.*?>)(?P<formula>.+)(?P<end_div></div>\s*)$#s', $content, $matches ) ) {
+		return $content;
+	}
+
+	if ( is_amp() ) {
 		static $printed_style = false;
 		if ( ! $printed_style ) {
 			// Add same margins as .MJXc-display.
@@ -157,6 +135,21 @@ function render_block( $attributes, $content = '' ) {
 			esc_html( $matches['formula'] ),
 			$matches['end_div']
 		);
+	} elseif ( ! wp_script_is( MATHJAX_SCRIPT_HANDLE, 'done' ) ) {
+		/**
+		 * Filters the MathJax config string.
+		 *
+		 * @param string $config MathHax config.
+		 */
+		$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
+
+		// Enqueue the MathJax script for front end formula display.
+		wp_register_script( MATHJAX_SCRIPT_HANDLE, 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=' . $config_string, array(), null, false );
+		ob_start();
+		wp_print_scripts( MATHJAX_SCRIPT_HANDLE );
+		$scripts = ob_get_clean();
+
+		$content = $matches['start_div'] . $matches['formula'] . $scripts . $matches['end_div'];
 	}
 	return $content;
 }
