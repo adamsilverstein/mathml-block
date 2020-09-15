@@ -4,6 +4,7 @@
 
 * Enables MathML math formulas blocks in the editor.
 * Uses the MathJax library to render the formulas: https://www.mathjax.org
+* Compatible with the [official AMP plugin](https://amp-wp.org/) by rendering [`amp-mathml`](https://amp.dev/documentation/components/amp-mathml/) on [AMP pages](https://amp.dev/).
 
 ### What is MathML?
 

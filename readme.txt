@@ -32,6 +32,8 @@ To test a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^
 
 To test using math formulas inline, type an formula into a block of text, select it and hit the 'M' icon in the control bar. For example: `\( \cos(θ+φ)=\cos(θ)\cos(φ)−\sin(θ)\sin(φ) \)`. _Note: if you are copying and pasting formulas into the rich text editor, switching to HTML/code editor mode is less likely to reformat your pasted formula._
 
+This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by rendering [`amp-mathml`](https://amp.dev/documentation/components/amp-mathml/) on [AMP pages](https://amp.dev/).
+
 === Technical Notes ===
 
 * Requires PHP 5.4+.
