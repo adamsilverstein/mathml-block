@@ -5,7 +5,7 @@
  * Version:           1.1.5
  * Requires at least: 5.0
  * Tested up to:      5.5
- * Requires PHP:      5.4
+ * Requires PHP:      5.6
  * Stable tag:        trunk
  * Author:            adamsilverstein
  * Author URI:        http://tunedin.net
