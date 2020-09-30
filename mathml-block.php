@@ -70,3 +70,12 @@ function potentially_add_front_end_mathjax_script() {
 
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\potentially_add_front_end_mathjax_script' );
+
+/**
+ * Enable the mathml inline tag for users without the unfiltered_html capability.
+ */
+function enable_mathml_in_wp_kses( $allowed_tags ) {
+	$allowed_tags[ 'mathml' ] = array();
+	return $allowed_tags;
+}
+add_filter( 'wp_kses_allowed_html', 'enable_mathml_in_wp_kses' );
