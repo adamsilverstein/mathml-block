@@ -6,7 +6,7 @@
     "build:dev": "webpack --mode=development --debug --devtool cheap-source-map --output-pathinfo",
     "watch": "webpack --watch --mode=development --debug --devtool cheap-module-eval-source-map --output-pathinfo"
   },
-  "author": "",
+  "author": "adamsilverstein",
   "license": "GPL-2.0",
   "devDependencies": {
     "@babel/core": "^7.10.5",
