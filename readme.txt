@@ -50,7 +50,7 @@ To test using math formulas inline, type an formula into a block of text, select
 
 == Changelog ==
 
-= 1.1.2 =
+= 1.1.5 =
 * Make JavaScript translatable, take 2.
 
 = 1.1.1 =
