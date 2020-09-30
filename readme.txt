@@ -34,7 +34,7 @@ To test using math formulas inline, type an formula into a block of text, select
 
 === Technical Notes ===
 
-* Requires PHP 5.4+.
+* Requires PHP 5.6+.
 * Requires WordPress 5.0+.
 * Issues and Pull requests welcome on the GitHub repository: https://github.com/adamsilverstein/mathml-block.
 
