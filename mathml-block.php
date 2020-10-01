@@ -2,10 +2,10 @@
 /**
  * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
- * Version:           1.1.2
+ * Version:           1.1.5
  * Requires at least: 5.0
  * Tested up to:      5.5
- * Requires PHP:      5.4
+ * Requires PHP:      5.6
  * Stable tag:        trunk
  * Author:            adamsilverstein
  * Author URI:        http://tunedin.net
@@ -58,6 +58,9 @@ function register_mathjax_script() {
 	);
 
 	wp_register_script( MATHJAX_SCRIPT_HANDLE, $src, array(), null, false );
+
+	// Maka JavaScript translatable.
+	wp_set_script_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
 }
 
 /**
@@ -76,12 +79,6 @@ function mathml_block_enqueue_scripts() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\mathml_block_enqueue_scripts' );
-
-// Maka JavaScript translatable.
-function mathml_set_up_js_translations() {
-	wp_set_script_translations( 'mathml-block', 'mathml-block' );
-}
-add_action( 'init', __NAMESPACE__ . '\mathml_set_up_js_translations' );
 
 /**
  * Register block.

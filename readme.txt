@@ -4,8 +4,8 @@ Author URI: http://tunedin.net.com
 Plugin URI: https://github.com/adamsilverstein/mathml-block
 Tags: MathML, Gutenberg, Block, math, block editor
 Requires at least: 5.0
-Tested up to: 5.4
-Requires PHP: 5.4
+Tested up to: 5.5
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,7 +36,7 @@ This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by
 
 === Technical Notes ===
 
-* Requires PHP 5.4+.
+* Requires PHP 5.6+.
 * Requires WordPress 5.0+.
 * Issues and Pull requests welcome on the GitHub repository: https://github.com/adamsilverstein/mathml-block.
 
@@ -51,6 +51,9 @@ This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by
 3. Use the MathML block!
 
 == Changelog ==
+
+= 1.1.5 =
+* Make JavaScript translatable, take 2.
 
 = 1.1.1 =
 * Improve translations, make JavaScript translatable.
