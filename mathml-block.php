@@ -18,6 +18,7 @@
 namespace MathMLBlock;
 
 use WP_Block_Type_Registry;
+use WP_Scripts;
 
 const BLOCK_NAME = 'mathml/mathmlblock';
 
@@ -40,8 +41,10 @@ function is_amp() {
 
 /**
  * Register MathJax script.
+ *
+ * @param WP_Scripts $scripts Scripts.
  */
-function register_mathjax_script() {
+function register_mathjax_script( WP_Scripts $scripts ) {
 
 	/**
 	 * Filters the MathJax config string.
@@ -57,17 +60,17 @@ function register_mathjax_script() {
 		MATHJAX_SCRIPT_URL
 	);
 
-	wp_register_script( MATHJAX_SCRIPT_HANDLE, $src, array(), null, false );
+	$scripts->add( MATHJAX_SCRIPT_HANDLE, $src, array(), null, false );
 
-	// Maka JavaScript translatable.
-	wp_set_script_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
+	// Make JavaScript translatable.
+	$scripts->set_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
 }
+add_action( 'wp_default_scripts', __NAMESPACE__ . '\register_mathjax_script' );
 
 /**
  * Enqueue the admin JavaScript assets.
  */
 function mathml_block_enqueue_scripts() {
-	register_mathjax_script();
 	wp_enqueue_script( MATHJAX_SCRIPT_HANDLE );
 
 	wp_enqueue_script(
@@ -165,7 +168,6 @@ function render_block( $attributes, $content = '' ) {
 			$matches['end_div']
 		);
 	} elseif ( ! wp_script_is( MATHJAX_SCRIPT_HANDLE, 'done' ) ) {
-		register_mathjax_script();
 		ob_start();
 		add_filter( 'script_loader_tag', __NAMESPACE__ . '\add_async_to_mathjax_script_loader_tag', 10, 2 );
 		wp_scripts()->do_items( MATHJAX_SCRIPT_HANDLE );
@@ -176,3 +178,29 @@ function render_block( $attributes, $content = '' ) {
 	}
 	return $content;
 }
+
+/**
+ * Filter content to transform inline math.
+ *
+ * @param string $content Content.
+ * @return string Replaced content.
+ */
+function filter_content( $content ) {
+	return preg_replace_callback(
+		'#(?P<start_tag><mathml>)(?P<formula>.+)(?P<end_tag></mathml>)#s',
+		static function ( $matches ) {
+			if ( is_amp() ) {
+				return sprintf(
+					'<amp-mathml layout="container" data-formula="%s" inline><span placeholder>%s</span></amp-mathml>',
+					esc_attr( $matches['formula'] ),
+					esc_html( $matches['formula'] )
+				);
+			} else {
+				wp_enqueue_script( MATHJAX_SCRIPT_HANDLE );
+				return $matches['start_tag'] . $matches['formula'] . $matches['end_tag'];
+			}
+		},
+		$content
+	);
+}
+add_filter( 'the_content', __NAMESPACE__ . '\filter_content', 20 );
