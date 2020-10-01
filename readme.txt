@@ -52,6 +52,9 @@ This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by
 
 == Changelog ==
 
+= 1.2.0 =
+* Add AMP compatibility, props @westonruter. Leverages the `amp-mathml` component.
+
 = 1.1.5 =
 * Make JavaScript translatable, take 2.
 
