@@ -160,7 +160,7 @@ function render_block( $attributes, $content = '' ) {
 				.wp-block-mathml-mathmlblock amp-mathml { margin: 1em 0; }
 			</style>
 			<?php
-			$style = ob_get_clean();
+			$style         = ob_get_clean();
 			$printed_style = true;
 		}
 
