@@ -150,19 +150,24 @@ function render_block( $attributes, $content = '' ) {
 
 	if ( is_amp() ) {
 		static $printed_style = false;
+
+		$style = '';
 		if ( ! $printed_style ) {
 			// Add same margins as .MJXc-display.
+			ob_start();
 			?>
 			<style class="amp-mathml">
 				.wp-block-mathml-mathmlblock amp-mathml { margin: 1em 0; }
 			</style>
 			<?php
+			$style         = ob_get_clean();
 			$printed_style = true;
 		}
 
 		return sprintf(
-			'%s<amp-mathml layout="container" data-formula="%s"><span placeholder>%s</span></amp-mathml>%s',
+			'%s%s<amp-mathml layout="container" data-formula="%s"><span placeholder>%s</span></amp-mathml>%s',
 			$matches['start_div'],
+			$style,
 			esc_attr( $matches['formula'] ),
 			esc_html( $matches['formula'] ),
 			$matches['end_div']
