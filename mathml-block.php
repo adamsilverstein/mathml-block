@@ -4,7 +4,7 @@
  * Description:       Display MathML formulas.
  * Version:           1.2.0
  * Requires at least: 5.0
- * Tested up to:      5.5
+ * Tested up to:      5.7
  * Requires PHP:      5.6
  * Stable tag:        trunk
  * Author:            adamsilverstein
