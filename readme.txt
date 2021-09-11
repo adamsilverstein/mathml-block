@@ -4,7 +4,7 @@ Author URI: http://tunedin.net.com
 Plugin URI: https://github.com/adamsilverstein/mathml-block
 Tags: MathML, Gutenberg, Block, math, block editor
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
