@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
 
     - name: Use Node.js
       uses: actions/setup-node@v3
@@ -30,7 +29,7 @@ jobs:
 
     - name: Upload diff images on failure
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: image-diffs
         path: tests/__image_snapshots__/__diff_output__
