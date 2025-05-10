@@ -4,7 +4,7 @@ Author URI: http://tunedin.net.com
 Plugin URI: https://github.com/adamsilverstein/mathml-block
 Tags: MathML, Gutenberg, Block, math, block editor
 Requires at least: 5.0
-Tested up to: 5.5
+Tested up to: 6.8
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -32,6 +32,8 @@ To test a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^
 
 To test using math formulas inline, type an formula into a block of text, select it and hit the 'M' icon in the control bar. For example: `\( \cos(θ+φ)=\cos(θ)\cos(φ)−\sin(θ)\sin(φ) \)`. _Note: if you are copying and pasting formulas into the rich text editor, switching to HTML/code editor mode is less likely to reformat your pasted formula._
 
+This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by rendering [`amp-mathml`](https://amp.dev/documentation/components/amp-mathml/) on [AMP pages](https://amp.dev/).
+
 === Technical Notes ===
 
 * Requires PHP 5.6+.
@@ -49,6 +51,12 @@ To test using math formulas inline, type an formula into a block of text, select
 3. Use the MathML block!
 
 == Changelog ==
+
+= 1.2.2 =
+Tested up to 6.1.
+
+= 1.2.0 =
+* Add AMP compatibility, props @westonruter. Leverages the `amp-mathml` component.
 
 = 1.1.5 =
 * Make JavaScript translatable, take 2.
