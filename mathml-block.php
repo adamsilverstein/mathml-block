@@ -217,4 +217,4 @@ function enable_mathml_in_wp_kses( $allowed_tags ) {
 	$allowed_tags[ 'mathml' ] = array();
 	return $allowed_tags;
 }
-add_filter( 'wp_kses_allowed_html', 'enable_mathml_in_wp_kses' );
+add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses' );
