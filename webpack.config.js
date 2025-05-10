@@ -6,6 +6,10 @@ module.exports = [
 
 	// Build the settings js..
 	{
+		// Set Node.js crypto configuration for newer Node.js versions
+		node: {
+			crypto: true,
+		},
 		entry: [ './src/mathml-block.js', './src/mathml-inline.js' ],
 		output: {
 			filename: 'mathml-block.js',
@@ -22,6 +26,7 @@ module.exports = [
 							query: {
 								presets: [ [ '@babel/env', {
 									'useBuiltIns': 'entry',
+									'corejs': 3,
 								} ], '@babel/preset-react' ],
 							}
 						},
