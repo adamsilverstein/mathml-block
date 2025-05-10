@@ -209,3 +209,12 @@ function filter_content( $content ) {
 	);
 }
 add_filter( 'the_content', __NAMESPACE__ . '\filter_content', 20 );
+
+/**
+ * Enable the mathml inline tag for users without the unfiltered_html capability.
+ */
+function enable_mathml_in_wp_kses( $allowed_tags ) {
+	$allowed_tags[ 'mathml' ] = array();
+	return $allowed_tags;
+}
+add_filter( 'wp_kses_allowed_html', 'enable_mathml_in_wp_kses' );
