@@ -45,6 +45,7 @@ module.exports = [
 			),
 			new ESLintPlugin({
 				failOnError: true,
+				extensions: ['js', 'jsx'],
 			}),
 		],
 		performance: {
