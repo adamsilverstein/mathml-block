@@ -37,7 +37,7 @@ registerBlockType( 'mathml/mathmlblock', {
 					<textarea
 						id={ id }
 						className="mathml-formula"
-						tagname="div"
+						data-tagname="div"
 						onChange={ ( event ) => {
 							setAttributes( { formula: event.target.value } );
 						} }
@@ -68,5 +68,3 @@ registerBlockType( 'mathml/mathmlblock', {
 		);
 	},
 } );
-
-
