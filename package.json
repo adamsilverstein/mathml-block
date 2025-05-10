@@ -2,7 +2,7 @@
   "name": "mathml-block",
   "main": "mathml-block.js",
   "scripts": {
-    "build": "webpack --mode=production ",
+    "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development --debug --devtool cheap-source-map --output-pathinfo",
     "watch": "webpack --watch --mode=development --debug --devtool cheap-module-eval-source-map --output-pathinfo"
   },
@@ -15,6 +15,7 @@
     "babel": "^6.23.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^4.3.0",
     "eslint": "^7.10.0",
     "eslint-config-wordpress": "^2.0.0",
@@ -27,9 +28,8 @@
     "uuid": "^8.3.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
-    "webpackbar": "^4.0.0"
-  },
-  "dependencies": {
-    "@wordpress/i18n": "^3.15.0"
+    "webpackbar": "^4.0.0",
+    "@wordpress/i18n": "^3.15.0",
+    "core-js": "^3.42.0"
   }
 }

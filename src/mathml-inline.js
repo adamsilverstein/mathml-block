@@ -1,3 +1,4 @@
+import icon from './icon';
 const { createElement, Fragment } = window.wp.element;
 const { registerFormatType, toggleFormat } = window.wp.richText;
 const { RichTextToolbarButton, RichTextShortcut } = window.wp.blockEditor;
@@ -34,6 +35,7 @@ import './mathml-block.css';
 					} ),
 					createElement( RichTextToolbarButton, {
 						title,
+						icon,
 						onClick: onToggle,
 						isActive,
 						shortcutType: 'primary',
