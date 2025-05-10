@@ -1,19 +1,17 @@
 const path = require( 'path' );
 
 const WebpackBar = require( 'webpackbar' );
+const ESLintPlugin = require( 'eslint-webpack-plugin' );
 
 module.exports = [
 
 	// Build the settings js..
 	{
-		// Set Node.js crypto configuration for newer Node.js versions
-		node: {
-			crypto: true,
-		},
 		entry: [ './src/mathml-block.js', './src/mathml-inline.js' ],
 		output: {
 			filename: 'mathml-block.js',
-			path: __dirname + '/dist/',
+			path: path.resolve(__dirname, 'dist'),
+			clean: true,
 		},
 		module: {
 			rules: [
@@ -23,17 +21,11 @@ module.exports = [
 					use: [
 						{
 							loader: 'babel-loader',
-							query: {
+							options: {
 								presets: [ [ '@babel/env', {
 									'useBuiltIns': 'entry',
 									'corejs': 3,
 								} ], '@babel/preset-react' ],
-							}
-						},
-						{
-							loader: 'eslint-loader',
-							options: {
-								failOnError: true,
 							}
 						}
 					]
@@ -44,12 +36,25 @@ module.exports = [
 				},
 			]
 		},
-		plugins: [ new WebpackBar(
-			{
-				name: 'Plugin Entry Points',
-				color: '#B6CD58',
-			}
-		) ],
+		plugins: [
+			new WebpackBar(
+				{
+					name: 'Plugin Entry Points',
+					color: '#B6CD58',
+				}
+			),
+			new ESLintPlugin({
+				failOnError: true,
+				extensions: ['js', 'jsx'],
+			}),
+		],
+		performance: {
+			hints: 'warning',
+		},
+		optimization: {
+			minimize: true,
+		},
+		target: ['web', 'es5'],
 	},
 
 ];
