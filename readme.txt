@@ -52,6 +52,11 @@ This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by
 
 == Changelog ==
 
+= 1.2.3 =
+Tested up to 6.8.
+Added icon to block editor.
+Enable for users without unfiltered HTML.
+
 = 1.2.2 =
 Tested up to 6.1.
 
