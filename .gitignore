@@ -1,1 +1,8 @@
-node_modules
+# Visual regression test outputs
+tests/__image_snapshots__/__diff_output__/
+
+# Node modules
+node_modules/
+
+# Build directory
+dist/
