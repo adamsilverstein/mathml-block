@@ -11,6 +11,8 @@ jobs:
     - uses: actions/checkout@master
     - run: |
           chown -R $(id -u):$(id -g) $PWD
+    - run: |
+          git config --global --add safe.directory /github/workspace
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
