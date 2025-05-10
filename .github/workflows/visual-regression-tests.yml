@@ -1,0 +1,45 @@
+name: Visual Regression Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  visual-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build project
+      run: npm run build
+
+    - name: Run visual regression tests
+      run: npm test
+
+    - name: Upload diff images on failure
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: image-diffs
+        path: tests/__image_snapshots__/__diff_output__
+        if-no-files-found: ignore
+
+    - name: Upload baseline images
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: baseline-images
+        path: tests/__image_snapshots__
+        if-no-files-found: ignore
