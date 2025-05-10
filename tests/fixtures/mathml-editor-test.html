@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathML Block Editor Test</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .editor-container {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .preview-container {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 30px;
+      background-color: #f9f9f9;
+    }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      font-family: monospace;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    button {
+      background-color: #0073aa;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #005177;
+    }
+    .mathml-block {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>MathML Block Editor Test</h1>
+
+  <div class="editor-container" id="editor-simple">
+    <label for="simple-equation-input">MathML formula (Simple Equation):</label>
+    <textarea id="simple-equation-input" class="mathml-formula">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>E</mi>
+    <mo>=</mo>
+    <mi>m</mi>
+    <msup>
+      <mi>c</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+</math>
+    </textarea>
+    <button onclick="updatePreview('simple-equation')">Update Preview</button>
+  </div>
+
+  <div class="preview-container" id="preview-simple">
+    <h3>Preview:</h3>
+    <div id="simple-equation-preview" class="mathml-block"></div>
+  </div>
+
+  <div class="editor-container" id="editor-complex">
+    <label for="complex-equation-input">MathML formula (Complex Equation):</label>
+    <textarea id="complex-equation-input" class="mathml-formula">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <msubsup>
+      <mo>∫</mo>
+      <mn>0</mn>
+      <mi>∞</mi>
+    </msubsup>
+    <msup>
+      <mi>e</mi>
+      <mrow>
+        <mo>-</mo>
+        <mi>x</mi>
+      </mrow>
+    </msup>
+    <mi>d</mi>
+    <mi>x</mi>
+    <mo>=</mo>
+    <mn>1</mn>
+  </mrow>
+</math>
+    </textarea>
+    <button onclick="updatePreview('complex-equation')">Update Preview</button>
+  </div>
+
+  <div class="preview-container" id="preview-complex">
+    <h3>Preview:</h3>
+    <div id="complex-equation-preview" class="mathml-block"></div>
+  </div>
+
+  <script>
+    // Initialize previews on page load
+    window.onload = function() {
+      updatePreview('simple-equation');
+      updatePreview('complex-equation');
+    };
+
+    // Function to update the preview
+    function updatePreview(id) {
+      const input = document.getElementById(`${id}-input`).value;
+      const preview = document.getElementById(`${id}-preview`);
+      preview.innerHTML = input;
+
+      // Trigger MathJax rendering
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview]);
+    }
+  </script>
+</body>
+</html>

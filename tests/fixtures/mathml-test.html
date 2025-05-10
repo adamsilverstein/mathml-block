@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathML Block Test</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .mathml-block {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>MathML Block Visual Test</h1>
+
+  <h2>Simple Equation</h2>
+  <div id="simple-equation" class="mathml-block">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </math>
+  </div>
+
+  <h2>Quadratic Formula</h2>
+  <div id="quadratic-formula" class="mathml-block">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+        <mi>x</mi>
+        <mo>=</mo>
+        <mfrac>
+          <mrow>
+            <mo>−</mo>
+            <mi>b</mi>
+            <mo>±</mo>
+            <msqrt>
+              <mrow>
+                <msup>
+                  <mi>b</mi>
+                  <mn>2</mn>
+                </msup>
+                <mo>−</mo>
+                <mn>4</mn>
+                <mi>a</mi>
+                <mi>c</mi>
+              </mrow>
+            </msqrt>
+          </mrow>
+          <mrow>
+            <mn>2</mn>
+            <mi>a</mi>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </math>
+  </div>
+
+  <h2>Matrix</h2>
+  <div id="matrix" class="mathml-block">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+        <mi>A</mi>
+        <mo>=</mo>
+        <mfenced open="[" close="]">
+          <mtable>
+            <mtr>
+              <mtd><mn>1</mn></mtd>
+              <mtd><mn>2</mn></mtd>
+              <mtd><mn>3</mn></mtd>
+            </mtr>
+            <mtr>
+              <mtd><mn>4</mn></mtd>
+              <mtd><mn>5</mn></mtd>
+              <mtd><mn>6</mn></mtd>
+            </mtr>
+            <mtr>
+              <mtd><mn>7</mn></mtd>
+              <mtd><mn>8</mn></mtd>
+              <mtd><mn>9</mn></mtd>
+            </mtr>
+          </mtable>
+        </mfenced>
+      </mrow>
+    </math>
+  </div>
+
+  <h2>Integral</h2>
+  <div id="integral" class="mathml-block">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+        <msubsup>
+          <mo>∫</mo>
+          <mn>0</mn>
+          <mi>∞</mi>
+        </msubsup>
+        <msup>
+          <mi>e</mi>
+          <mrow>
+            <mo>-</mo>
+            <mi>x</mi>
+          </mrow>
+        </msup>
+        <mi>d</mi>
+        <mi>x</mi>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mrow>
+    </math>
+  </div>
+
+  <script>
+    // Trigger MathJax rendering
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  </script>
+</body>
+</html>
