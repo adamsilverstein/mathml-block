@@ -12,21 +12,8 @@ global.wp = {
   // Add other wp dependencies if your component uses them
 };
 
-// Mock MathJax for Storybook environment if it's not loaded globally
-if (typeof window !== 'undefined' && !window.MathJax) {
-  window.MathJax = {
-    Hub: {
-      Queue: (tasks) => {
-        // In a real Storybook, you might want to actually render MathJax
-        // or provide a visual placeholder. For now, this is a no-op.
-        console.log('MathJax.Hub.Queue called with:', tasks);
-      },
-      Typeset: () => {
-        console.log('MathJax.Hub.Typeset called');
-      }
-    },
-  };
-}
+// MathJax is now loaded in .storybook/preview.js
+// No need to mock it here anymore
 
 const renderMathMLStory = (id, formula) => {
   // Attempt to trigger MathJax rendering for the story
