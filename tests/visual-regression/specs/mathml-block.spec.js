@@ -27,9 +27,29 @@ test.describe('MathML Block Visual Regression', () => {
         console.log(`Selector timeout for ${storyId}, continuing anyway`);
       }
 
-      // Wait for MathJax to render if necessary.
-      // Simple fixed timeout approach
-      await page.waitForTimeout(3000); // Increased timeout for MathJax rendering
+      // Wait for MathJax to render
+      // First, wait for a reasonable amount of time for MathJax to load
+      await page.waitForTimeout(2000);
+
+      // Then check if MathJax is available and wait for it to finish processing
+      await page.evaluate(() => {
+        return new Promise((resolve) => {
+          if (window.MathJax && window.MathJax.Hub) {
+            // Add a callback to MathJax queue to resolve when rendering is complete
+            window.MathJax.Hub.Queue(() => {
+              console.log('MathJax rendering complete');
+              resolve();
+            });
+          } else {
+            // If MathJax is not available, resolve after a short delay
+            console.log('MathJax not available, continuing anyway');
+            setTimeout(resolve, 500);
+          }
+        });
+      });
+
+      // Additional safety timeout to ensure rendering is complete
+      await page.waitForTimeout(1000);
 
       // Take a screenshot of the entire page or a specific element
       // For block components, it's often best to target the block's wrapper if possible.
