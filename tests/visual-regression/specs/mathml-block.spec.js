@@ -54,6 +54,7 @@ test.describe('MathML Block Visual Regression', () => {
       // Take a screenshot of the entire page or a specific element
       // For block components, it's often best to target the block's wrapper if possible.
       // If the story renders just the component, page.screenshot() is fine.
+      // Take a simple screenshot
       await expect(page).toHaveScreenshot(`${storyId}.png`);
     });
   }
