@@ -61,11 +61,6 @@ module.exports = defineConfig({
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   outputDir: 'test-results/',
 
-  /* Run your local dev server before starting the tests */
-  webServer: process.env.CI ? {
-    command: 'npm run build-storybook && npx http-server storybook-static --port 6006 --silent',
-    url: 'http://localhost:6006',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000, // 2 minutes to allow for build and startup
-  } : undefined, // Only use webServer in CI environment
+  // We're not using the webServer configuration here because we're starting the server
+  // in the GitHub Actions workflow using concurrently
 });
