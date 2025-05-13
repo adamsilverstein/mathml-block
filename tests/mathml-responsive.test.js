@@ -33,7 +33,7 @@ describe('MathML Block Responsive Visual Tests', () => {
           height: viewport.height,
         });
         // Allow time for any responsive adjustments
-        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 500)));
+await page.waitForTimeout(500); // Allow time for any responsive adjustments
       });
 
       test('Simple equation renders correctly', async () => {
