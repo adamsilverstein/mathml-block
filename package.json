@@ -8,7 +8,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test:visual": "playwright test --config=playwright.config.js",
-    "test:visual:update": "playwright test --config=playwright.config.js --update-snapshots"
+    "test:visual:update": "playwright test --config=playwright.update.config.js",
+    "test:visual:force-update": "playwright test --config=playwright.config.js --update-snapshots"
   },
   "author": "adamsilverstein",
   "license": "GPL-2.0",

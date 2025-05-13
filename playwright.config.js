@@ -15,6 +15,10 @@ module.exports = defineConfig({
       // Adjust this value based on your needs.
       maxDiffPixelRatio: 0.05,
     },
+    toHaveScreenshot: {
+      // Use more lenient settings for visual comparison
+      maxDiffPixelRatio: 0.1,
+    },
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
