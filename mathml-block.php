@@ -24,7 +24,9 @@ const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
 
-const MATHJAX_SCRIPT_URL = plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
+function get_mathjax_script_url() {
+	return plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
+}
 
 /**
  * Determine whether the response will be an AMP page.
@@ -48,9 +50,8 @@ function register_mathjax_script( WP_Scripts $scripts ) {
 
 	/**
 	 * MathJax v3 doesn't use config query parameters like v2 did.
-	 * Configuration is done via a global MathJax object before loading the script.
 	 */
-	$scripts->add( MATHJAX_SCRIPT_HANDLE, MATHJAX_SCRIPT_URL, array(), null, false );
+	$scripts->add( MATHJAX_SCRIPT_HANDLE, get_mathjax_script_url(), array(), null, false );
 
 	// Make JavaScript translatable.
 	$scripts->set_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
