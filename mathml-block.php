@@ -24,7 +24,7 @@ const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
 
-const MATHJAX_SCRIPT_URL = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js';
+const MATHJAX_SCRIPT_URL = plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
 
 /**
  * Determine whether the response will be an AMP page.
@@ -47,25 +47,36 @@ function is_amp() {
 function register_mathjax_script( WP_Scripts $scripts ) {
 
 	/**
-	 * Filters the MathJax config string.
-	 *
-	 * @param string $config MathHax config.
+	 * MathJax v3 doesn't use config query parameters like v2 did.
+	 * Configuration is done via a global MathJax object before loading the script.
 	 */
-	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
-
-	$src = add_query_arg(
-		array(
-			'config' => rawurlencode( $config_string )
-		),
-		MATHJAX_SCRIPT_URL
-	);
-
-	$scripts->add( MATHJAX_SCRIPT_HANDLE, $src, array(), null, false );
+	$scripts->add( MATHJAX_SCRIPT_HANDLE, MATHJAX_SCRIPT_URL, array(), null, false );
 
 	// Make JavaScript translatable.
 	$scripts->set_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
 }
 add_action( 'wp_default_scripts', __NAMESPACE__ . '\register_mathjax_script' );
+
+/**
+ * Add MathJax v3 configuration.
+ */
+function add_mathjax_config() {
+	?>
+	<script type="text/javascript">
+	window.MathJax = {
+		tex: {
+			inlineMath: [['$', '$'], ['\\(', '\\)']]
+		},
+		options: {
+			skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			ignoreHtmlClass: 'tex2jax_ignore',
+			processHtmlClass: 'tex2jax_process'
+		}
+	};
+	</script>
+	<?php
+}
+add_action( 'wp_head', __NAMESPACE__ . '\add_mathjax_config', 5 );
 
 /**
  * Enqueue the admin JavaScript assets.
