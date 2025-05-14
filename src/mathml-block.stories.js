@@ -15,15 +15,21 @@ global.wp = {
 // MathJax is now loaded in .storybook/preview.js
 // No need to mock it here anymore
 
-const renderMathMLStory = (id, formula) => {
+const renderMathMLStory = ( id, formula ) => {
   // Attempt to trigger MathJax rendering for the story
-  // This might need adjustment based on how MathJax is loaded and initialized in your project
-  setTimeout(() => {
-    if (window.MathJax && window.MathJax.Hub && document.getElementById(id)) {
-      window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, document.getElementById(id)]);
+  setTimeout( () => {
+    // MathJax v3 API
+    if ( window.MathJax && window.MathJax.typesetPromise && document.getElementById( id ) ) {
+      window.MathJax.typesetPromise( [ document.getElementById( id ) ] ).catch( ( err ) => {
+        // eslint-disable-next-line no-console
+        console.error( 'MathJax typesetting failed: ', err );
+      } );
+    // Fallback for MathJax v2 API
+    } else if ( window.MathJax && window.MathJax.Hub && document.getElementById( id ) ) {
+      window.MathJax.Hub.Queue( [ 'Typeset', window.MathJax.Hub, document.getElementById( id ) ] );
     }
-  }, 100);
-  return <RawHTML id={id}>{formula}</RawHTML>;
+  }, 100 );
+  return <RawHTML id={ id }>{ formula }</RawHTML>;
 };
 
 

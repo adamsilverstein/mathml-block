@@ -6,7 +6,18 @@ const { registerBlockType } = wp.blocks;
 
 const renderMathML = ( id ) => {
 	setTimeout( () => {
-		MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub, document.getElementById( id ) ] );
+
+		// MathJax v3 API
+		if ( window.MathJax && window.MathJax.typesetPromise ) {
+			window.MathJax.typesetPromise( [ document.getElementById( id ) ] ).catch( ( err ) => {
+				// eslint-disable-next-line no-console
+				console.error( 'MathJax typesetting failed: ', err );
+			} );
+
+		// Fallback for MathJax v2 API (for backward compatibility)
+		} else if ( window.MathJax && window.MathJax.Hub ) {
+			window.MathJax.Hub.Queue( [ 'Typeset', window.MathJax.Hub, document.getElementById( id ) ] );
+		}
 	}, 100 );
 };
 

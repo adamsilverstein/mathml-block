@@ -22,7 +22,21 @@ import './mathml-block.css';
 			const onToggle = () => {
 				onChange( toggleFormat( value, { type } ) );
 				setTimeout( () => {
-					MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub, document.getElementsByTagName( 'mathml' ) ] );
+
+					// MathJax v3 API
+					if ( window.MathJax && window.MathJax.typesetPromise ) {
+						const elements = document.getElementsByTagName( 'mathml' );
+						if ( 0 < elements.length ) {
+							window.MathJax.typesetPromise( Array.from( elements ) ).catch( ( err ) => {
+								// eslint-disable-next-line no-console
+								console.error( 'MathJax typesetting failed: ', err );
+							} );
+						}
+
+					// Fallback for MathJax v2 API (for backward compatibility)
+					} else if ( window.MathJax && window.MathJax.Hub ) {
+						window.MathJax.Hub.Queue( [ 'Typeset', window.MathJax.Hub, document.getElementsByTagName( 'mathml' ) ] );
+					}
 				}, 100 );
 			};
 

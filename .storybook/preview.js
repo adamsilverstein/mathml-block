@@ -11,30 +11,25 @@ const loadMathJax = () => {
     return;
   }
 
-  // Create script element to load MathJax
-  const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-  script.async = true;
-
-  // Configure MathJax
+  // Configure MathJax v3
   window.MathJax = {
-    messageStyle: 'none',
-    showMathMenu: false,
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']]
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
     },
-    skipStartupTypeset: true, // We'll trigger typesetting manually
-    MMLorHTML: {
-      prefer: {
-        Firefox: "MML",
-        Safari: "MML",
-        Chrome: "HTML",
-        Opera: "HTML",
-        other: "HTML"
-      }
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    },
+    startup: {
+      typeset: false // We'll trigger typesetting manually
     }
   };
 
+  // Create script element to load MathJax
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+  script.async = true;
   document.head.appendChild(script);
 };
 
@@ -45,9 +40,17 @@ export const decorators = [
       loadMathJax();
 
       // Re-render MathJax content after the story renders
-      if (window.MathJax && window.MathJax.Hub) {
+      if (window.MathJax) {
         setTimeout(() => {
-          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);
+          if (window.MathJax.typesetPromise) {
+            // MathJax v3 API
+            window.MathJax.typesetPromise().catch((err) => {
+              console.error('MathJax typesetting failed: ', err);
+            });
+          } else if (window.MathJax.Hub) {
+            // Fallback for MathJax v2 API
+            window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);
+          }
         }, 500);
       }
     }, []);
