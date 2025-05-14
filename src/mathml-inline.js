@@ -26,7 +26,7 @@ import './mathml-block.css';
 					// MathJax v3 API
 					if ( window.MathJax && window.MathJax.typesetPromise ) {
 						const elements = document.getElementsByTagName( 'mathml' );
-						if ( 0 < elements.length ) {
+						if ( elements && 0 < elements.length ) {
 							window.MathJax.typesetPromise( Array.from( elements ) ).catch( ( err ) => {
 								// eslint-disable-next-line no-console
 								console.error( 'MathJax typesetting failed: ', err );
