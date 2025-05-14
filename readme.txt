@@ -28,9 +28,9 @@ Mathematical Markup Language is a mathematical markup language, an application o
 
 The MathML block uses MathJax to render MathML formulas in the editor and on the front end of a website. MathJax (https://www.mathjax.org/) is _A JavaScript display engine for mathematics that works in all browsers._
 
-To test a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}\]`.
+Use a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}\]`.
 
-To test using math formulas inline, type an formula into a block of text, select it and hit the 'M' icon in the control bar. For example: `\( \cos(θ+φ)=\cos(θ)\cos(φ)−\sin(θ)\sin(φ) \)`. _Note: if you are copying and pasting formulas into the rich text editor, switching to HTML/code editor mode is less likely to reformat your pasted formula._
+To use math formulas inline, type an formula into a block of text, select it and then select MathML from the formatting dropdown. For example: `\( \cos(θ+φ)=\cos(θ)\cos(φ)−\sin(θ)\sin(φ) \)`. _Note: if you are copying and pasting formulas into the rich text editor, switching to HTML/code editor mode is less likely to reformat your pasted formula._
 
 === Technical Notes ===
 
