@@ -44,11 +44,16 @@ To test using math formulas inline, type an formula into a block of text, select
 
 
 == Installation ==
-1. Install the plugin via the plugin installer, either by searching for it or uploading a .zip file.
+1. Install from the blockeditor block inserter by searching for "MathML".
 2. Activate the plugin.
 3. Use the MathML block!
 
 == Changelog ==
+
+= 2.0.0 =
+Update MathJax to version 3, see https://docs.mathjax.org/en/v3.2-latest/upgrading/whats-new-3.0.html.
+Add visual regression tests.
+Upgrade to webpack 5. Update dependencies. Add .nvmrc file.
 
 = 1.2.3 =
 Tested up to 6.8.
