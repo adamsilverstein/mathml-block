@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
- * Version:           1.2.3
+ * Version:           2.0.0
  * Requires at least: 5.0
  * Tested up to:      6.8
  * Requires PHP:      5.6
