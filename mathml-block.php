@@ -24,7 +24,7 @@ const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
 
-const MATHJAX_SCRIPT_URL = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+const MATHJAX_SCRIPT_URL = plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
 
 /**
  * Determine whether the response will be an AMP page.
