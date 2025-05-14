@@ -46,9 +46,8 @@ function register_mathjax_script( WP_Scripts $scripts ) {
 
 	/**
 	 * MathJax v3 doesn't use config query parameters like v2 did.
-	 * Configuration is done via a global MathJax object before loading the script.
 	 */
-	$scripts->add( MATHJAX_SCRIPT_HANDLE, MATHJAX_SCRIPT_URL, array(), null, false );
+	$scripts->add( MATHJAX_SCRIPT_HANDLE, get_mathjax_script_url(), array(), null, false );
 
 	// Make JavaScript translatable.
 	$scripts->set_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
