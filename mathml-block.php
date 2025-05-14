@@ -24,8 +24,6 @@ const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
 
-const MATHJAX_SCRIPT_URL = plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
-
 /**
  * Determine whether the response will be an AMP page.
  *
@@ -139,7 +137,7 @@ add_action( 'init', __NAMESPACE__ . '\register_block' );
  */
 function add_async_to_mathjax_script_loader_tag( $tag, $handle ) {
 	if ( MATHJAX_SCRIPT_HANDLE === $handle ) {
-		$tag = preg_replace( '/(?<=<script\s)/', ' async ', $tag );
+		$tag = preg_replace( '/(?<=<script\s)/', 'async ', $tag );
 	}
 	return $tag;
 }

@@ -1,0 +1,31 @@
+{
+    "name": "adamsilverstein/mathml-block",
+    "description": "A MathML block for the WordPress block editor (Gutenberg).",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "adamsilverstein",
+            "email": "adam@10up.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "yoast/phpunit-polyfills": "^1.0",
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
+    },
+    "scripts": {
+        "test": "phpunit --configuration=tests/phpunit/phpunit.xml",
+        "phpcs": "phpcs --standard=WordPress *.php src/ tests/",
+        "phpcbf": "phpcbf --standard=WordPress *.php src/ tests/"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
