@@ -4,7 +4,7 @@ Author URI: http://tunedin.net.com
 Plugin URI: https://github.com/adamsilverstein/mathml-block
 Tags: MathML, Gutenberg, Block, math, block editor
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -51,6 +51,7 @@ To test using math formulas inline, type an formula into a block of text, select
 == Changelog ==
 
 = 2.0.0 =
+Confirm compatibility with WordPress 7.1.
 Update MathJax to version 3, see https://docs.mathjax.org/en/v3.2-latest/upgrading/whats-new-3.0.html.
 Add visual regression tests.
 Upgrade to webpack 5. Update dependencies. Add .nvmrc file.
