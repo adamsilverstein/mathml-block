@@ -4,16 +4,22 @@ Author URI: http://tunedin.net.com
 Plugin URI: https://github.com/adamsilverstein/mathml-block
 Tags: MathML, Gutenberg, Block, math, block editor
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 7.2
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mathml-block
 
-A MathML block for the WordPress block editor (Gutenberg).
+A MathML block for the WordPress block editor (Gutenberg). No longer maintained - WordPress core now includes a Math block.
 
 == Description ==
+
+**This plugin is no longer maintained and will not receive further updates.**
+
+WordPress core now includes its own Math block (`core/math`), present in WordPress 7.0 and later, which covers the same ground: it renders mathematical notation written as LaTeX, and stores the rendered MathML alongside it. Anyone using this plugin is encouraged to move to the core Math block.
+
+Version 1.2.4 is the final release. No further compatibility, bug fix, or security updates are planned.
 
 A MathML block for the WordPress block editor (Gutenberg).
 Requires PHP 5.4+ and WordPress 5.0+.
@@ -32,8 +38,6 @@ To test a MathML block and enter a formula, for example: `\[x = {-b \pm \sqrt{b^
 
 To test using math formulas inline, type an formula into a block of text, select it and hit the 'M' icon in the control bar. For example: `\( \cos(θ+φ)=\cos(θ)\cos(φ)−\sin(θ)\sin(φ) \)`. _Note: if you are copying and pasting formulas into the rich text editor, switching to HTML/code editor mode is less likely to reformat your pasted formula._
 
-This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by rendering [`amp-mathml`](https://amp.dev/documentation/components/amp-mathml/) on [AMP pages](https://amp.dev/).
-
 === Technical Notes ===
 
 * Requires PHP 5.6+.
@@ -51,6 +55,15 @@ This plugin is compatible with the [official AMP plugin](https://amp-wp.org/) by
 3. Use the MathML block!
 
 == Changelog ==
+
+= 1.2.4 =
+Final release. This plugin is no longer maintained; WordPress core now includes a Math block (`core/math`).
+Tested up to 7.2.
+
+= 1.2.3 =
+Tested up to 6.8.
+Added icon to block editor.
+Enable for users without unfiltered HTML.
 
 = 1.2.2 =
 Tested up to 6.1.
