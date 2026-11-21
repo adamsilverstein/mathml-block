@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="bootstrap.php"
+         colors="true"
+         executionOrder="depends,defects"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true">
+    <testsuites>
+        <testsuite name="MathML Block Plugin Tests">
+            <directory suffix=".php">./</directory>
+            <exclude>./bootstrap.php</exclude>
+            <exclude>./class-test-case.php</exclude>
+            <exclude>./plugin-loader.php</exclude>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <file>../../mathml-block.php</file>
+        </include>
+    </coverage>
+
+    <php>
+        <ini name="display_errors" value="On" />
+        <ini name="display_startup_errors" value="On" />
+        <ini name="error_reporting" value="E_ALL" />
+    </php>
+</phpunit>

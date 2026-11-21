@@ -9,12 +9,15 @@
     "build-storybook": "storybook build",
     "test:visual": "playwright test --config=playwright.config.js",
     "test:visual:update": "playwright test --config=playwright.update.config.js",
-    "test:visual:force-update": "playwright test --config=playwright.config.js --update-snapshots"
+    "test:visual:force-update": "playwright test --config=playwright.config.js --update-snapshots",
+    "test:php": "composer test",
+    "test": "npm run test:php && npm run test:visual"
   },
   "author": "adamsilverstein",
   "license": "GPL-2.0",
   "devDependencies": {
     "@babel/core": "^7.24.4",
+    "@phpunit/phpunit": "^10.5.0",
     "@babel/preset-env": "^7.24.4",
     "@babel/preset-react": "^7.24.4",
     "@playwright/test": "^1.52.0",

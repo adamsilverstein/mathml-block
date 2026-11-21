@@ -1,1 +1,22 @@
-node_modules
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+.phpunit.cache/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build files
+/dist/
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store

@@ -19,3 +19,52 @@ To test using math formulas inline, type an formula into a block of text, select
 ## Screencast
 
 ![](https://cl.ly/c0f6bbfbc3b1/Screen%252520Recording%2525202018-12-25%252520at%25252008.12%252520AM.gif)
+
+## Development
+
+### Testing
+
+#### Visual Regression Tests
+
+The plugin includes visual regression tests using Storybook and Playwright.
+
+1. Start Storybook:
+   ```bash
+   npm run storybook
+   ```
+
+2. Run the tests:
+   ```bash
+   npm run test:visual
+   ```
+
+3. Update snapshots if needed:
+   ```bash
+   npm run test:visual:update
+   ```
+
+#### PHP Unit Tests
+
+The plugin includes PHP unit tests for the PHP functions.
+
+1. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
+
+2. Run the tests:
+   ```bash
+   composer test
+   ```
+
+### Code Quality
+
+Run PHP CodeSniffer:
+```bash
+composer phpcs
+```
+
+Fix coding standards issues automatically:
+```bash
+composer phpcbf
+```
