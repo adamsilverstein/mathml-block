@@ -3,14 +3,16 @@ on:
   push:
     branches:
     - master
+permissions:
+  contents: read
 jobs:
   master:
     name: Push to master
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
     - name: WordPress.org asset update
-      uses: 10up/action-wordpress-plugin-asset-update@master
+      uses: 10up/action-wordpress-plugin-asset-update@2480306f6f693672726d08b5917ea114cb2825f7 # 2.2.0
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }} 

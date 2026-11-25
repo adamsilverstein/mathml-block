@@ -19,7 +19,7 @@ A MathML block for the WordPress block editor (Gutenberg). No longer maintained 
 
 WordPress core now includes its own Math block (`core/math`), present in WordPress 7.0 and later, which covers the same ground: it renders mathematical notation written as LaTeX, and stores the rendered MathML alongside it. Anyone using this plugin is encouraged to move to the core Math block.
 
-Version 2.0.0 is the final release. It is confirmed working on WordPress 7.2, but no further compatibility, bug fix, or security updates are planned.
+Version 2.1.0 is the final version. It is confirmed working on WordPress 7.2, but no further compatibility, bug fix, or security updates are planned.
 
 A MathML block for the WordPress block editor (Gutenberg).
 Requires PHP 5.4+ and WordPress 5.0+.
@@ -55,6 +55,14 @@ To test using math formulas inline, type an formula into a block of text, select
 3. Use the MathML block!
 
 == Changelog ==
+
+= 2.1.0 =
+Security release.
+* Load the MathJax Safe extension, so formulas can no longer add `javascript:` links or restyle the page.
+* Ship the MathJax web fonts and TeX extensions, which were missing from 2.0.0.
+* Only allow the `mathml` tag in post content, not in comments.
+* Fix inline formulas being merged together on AMP pages.
+* Stop shipping test reports and build tooling in the release.
 
 = 2.0.0 =
 Final release. This plugin is no longer maintained; WordPress core now includes a Math block (`core/math`).

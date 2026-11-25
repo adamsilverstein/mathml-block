@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
- * Version:           2.0.0
+ * Version:           2.1.0
  * Requires at least: 5.0
  * Tested up to:      7.2
  * Requires PHP:      5.6
@@ -20,12 +20,44 @@ namespace MathMLBlock;
 use WP_Block_Type_Registry;
 use WP_Scripts;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
 
 function get_mathjax_script_url() {
 	return plugin_dir_url( __FILE__ ) . 'vendor/MathJax/es5/tex-mml-chtml.js';
+}
+
+/**
+ * Get the MathJax v3 configuration.
+ *
+ * The Safe extension is required: MathJax typesets every delimited formula
+ * on the page, including text from untrusted authors and commenters, and
+ * without it TeX can create `javascript:` links and arbitrary styles.
+ *
+ * @return array MathJax configuration.
+ */
+function get_mathjax_config() {
+	return array(
+		'loader'  => array(
+			'load' => array( 'ui/safe' ),
+		),
+		'tex'     => array(
+			'inlineMath' => array(
+				array( '$', '$' ),
+				array( '\\(', '\\)' ),
+			),
+		),
+		'options' => array(
+			'skipHtmlTags'     => array( 'script', 'noscript', 'style', 'textarea', 'pre' ),
+			'ignoreHtmlClass'  => 'tex2jax_ignore',
+			'processHtmlClass' => 'tex2jax_process',
+		),
+	);
 }
 
 /**
@@ -53,31 +85,17 @@ function register_mathjax_script( WP_Scripts $scripts ) {
 	 */
 	$scripts->add( MATHJAX_SCRIPT_HANDLE, get_mathjax_script_url(), array(), null, false );
 
+	// Attach the configuration to the script so it also applies in the editor.
+	$scripts->add_inline_script(
+		MATHJAX_SCRIPT_HANDLE,
+		'window.MathJax = ' . wp_json_encode( get_mathjax_config() ) . ';',
+		'before'
+	);
+
 	// Make JavaScript translatable.
 	$scripts->set_translations( MATHJAX_SCRIPT_HANDLE, 'mathml-block' );
 }
 add_action( 'wp_default_scripts', __NAMESPACE__ . '\register_mathjax_script' );
-
-/**
- * Add MathJax v3 configuration.
- */
-function add_mathjax_config() {
-	?>
-	<script type="text/javascript">
-	window.MathJax = {
-		tex: {
-			inlineMath: [['$', '$'], ['\\(', '\\)']]
-		},
-		options: {
-			skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			ignoreHtmlClass: 'tex2jax_ignore',
-			processHtmlClass: 'tex2jax_process'
-		}
-	};
-	</script>
-	<?php
-}
-add_action( 'wp_head', __NAMESPACE__ . '\add_mathjax_config', 5 );
 
 /**
  * Enqueue the admin JavaScript assets.
@@ -140,7 +158,8 @@ add_action( 'init', __NAMESPACE__ . '\register_block' );
  */
 function add_async_to_mathjax_script_loader_tag( $tag, $handle ) {
 	if ( MATHJAX_SCRIPT_HANDLE === $handle ) {
-		$tag = preg_replace( '/(?<=<script\s)/', ' async ', $tag );
+		// Only the external script: the inline configuration has to run first.
+		$tag = preg_replace( '/<script\s(?=[^>]*\bsrc=)/', '<script async ', $tag );
 	}
 	return $tag;
 }
@@ -204,7 +223,7 @@ function render_block( $attributes, $content = '' ) {
  */
 function filter_content( $content ) {
 	return preg_replace_callback(
-		'#(?P<start_tag><mathml>)(?P<formula>.+)(?P<end_tag></mathml>)#s',
+		'#(?P<start_tag><mathml>)(?P<formula>.+?)(?P<end_tag></mathml>)#s',
 		static function ( $matches ) {
 			if ( is_amp() ) {
 				return sprintf(
@@ -224,9 +243,19 @@ add_filter( 'the_content', __NAMESPACE__ . '\filter_content', 20 );
 
 /**
  * Enable the mathml inline tag for users without the unfiltered_html capability.
+ *
+ * Limited to post content, so the tag is not let through comments or the
+ * explicit allow lists other code passes to wp_kses().
+ *
+ * @param array        $allowed_tags Allowed tags.
+ * @param string|array $context      Context the tags are allowed in.
+ *
+ * @return array Allowed tags.
  */
-function enable_mathml_in_wp_kses( $allowed_tags ) {
-	$allowed_tags[ 'mathml' ] = array();
+function enable_mathml_in_wp_kses( $allowed_tags, $context = '' ) {
+	if ( 'post' === $context && is_array( $allowed_tags ) ) {
+		$allowed_tags['mathml'] = array();
+	}
 	return $allowed_tags;
 }
-add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses' );
+add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses', 10, 2 );
