@@ -53,6 +53,17 @@ function register_mathjax_script( WP_Scripts $scripts ) {
 	 */
 	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
 
+	/*
+	 * Always load the Safe extension. MathJax typesets every delimited formula
+	 * on the page, including text from untrusted authors and commenters, and
+	 * without it TeX can create `javascript:` links and arbitrary styles.
+	 */
+	$config_files = array_filter( array_map( 'trim', explode( ',', (string) $config_string ) ) );
+	if ( ! in_array( 'Safe', $config_files, true ) ) {
+		$config_files[] = 'Safe';
+	}
+	$config_string = implode( ',', $config_files );
+
 	$src = add_query_arg(
 		array(
 			'config' => rawurlencode( $config_string )
