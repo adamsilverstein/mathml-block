@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       MathML block
  * Description:       Display MathML formulas.
- * Version:           1.2.4
+ * Version:           1.3.0
  * Requires at least: 5.0
  * Tested up to:      7.2
  * Requires PHP:      5.6
@@ -19,6 +19,10 @@ namespace MathMLBlock;
 
 use WP_Block_Type_Registry;
 use WP_Scripts;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 const BLOCK_NAME = 'mathml/mathmlblock';
 
@@ -52,6 +56,17 @@ function register_mathjax_script( WP_Scripts $scripts ) {
 	 * @param string $config MathHax config.
 	 */
 	$config_string = apply_filters( 'mathml_block_mathjax_config', 'TeX-MML-AM_CHTML' );
+
+	/*
+	 * Always load the Safe extension. MathJax typesets every delimited formula
+	 * on the page, including text from untrusted authors and commenters, and
+	 * without it TeX can create `javascript:` links and arbitrary styles.
+	 */
+	$config_files = array_filter( array_map( 'trim', explode( ',', (string) $config_string ) ) );
+	if ( ! in_array( 'Safe', $config_files, true ) ) {
+		$config_files[] = 'Safe';
+	}
+	$config_string = implode( ',', $config_files );
 
 	$src = add_query_arg(
 		array(
@@ -192,7 +207,7 @@ function render_block( $attributes, $content = '' ) {
  */
 function filter_content( $content ) {
 	return preg_replace_callback(
-		'#(?P<start_tag><mathml>)(?P<formula>.+)(?P<end_tag></mathml>)#s',
+		'#(?P<start_tag><mathml>)(?P<formula>.+?)(?P<end_tag></mathml>)#s',
 		static function ( $matches ) {
 			if ( is_amp() ) {
 				return sprintf(
@@ -212,9 +227,19 @@ add_filter( 'the_content', __NAMESPACE__ . '\filter_content', 20 );
 
 /**
  * Enable the mathml inline tag for users without the unfiltered_html capability.
+ *
+ * Limited to post content, so the tag is not let through comments or the
+ * explicit allow lists other code passes to wp_kses().
+ *
+ * @param array        $allowed_tags Allowed tags.
+ * @param string|array $context      Context the tags are allowed in.
+ *
+ * @return array Allowed tags.
  */
-function enable_mathml_in_wp_kses( $allowed_tags ) {
-	$allowed_tags[ 'mathml' ] = array();
+function enable_mathml_in_wp_kses( $allowed_tags, $context = '' ) {
+	if ( 'post' === $context && is_array( $allowed_tags ) ) {
+		$allowed_tags['mathml'] = array();
+	}
 	return $allowed_tags;
 }
-add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses' );
+add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses', 10, 2 );
