@@ -239,9 +239,19 @@ add_filter( 'the_content', __NAMESPACE__ . '\filter_content', 20 );
 
 /**
  * Enable the mathml inline tag for users without the unfiltered_html capability.
+ *
+ * Limited to post content, so the tag is not let through comments or the
+ * explicit allow lists other code passes to wp_kses().
+ *
+ * @param array        $allowed_tags Allowed tags.
+ * @param string|array $context      Context the tags are allowed in.
+ *
+ * @return array Allowed tags.
  */
-function enable_mathml_in_wp_kses( $allowed_tags ) {
-	$allowed_tags[ 'mathml' ] = array();
+function enable_mathml_in_wp_kses( $allowed_tags, $context = '' ) {
+	if ( 'post' === $context && is_array( $allowed_tags ) ) {
+		$allowed_tags['mathml'] = array();
+	}
 	return $allowed_tags;
 }
-add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses' );
+add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\enable_mathml_in_wp_kses', 10, 2 );
