@@ -20,6 +20,10 @@ namespace MathMLBlock;
 use WP_Block_Type_Registry;
 use WP_Scripts;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 const BLOCK_NAME = 'mathml/mathmlblock';
 
 const MATHJAX_SCRIPT_HANDLE = 'mathjax';
