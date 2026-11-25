@@ -203,7 +203,7 @@ function render_block( $attributes, $content = '' ) {
  */
 function filter_content( $content ) {
 	return preg_replace_callback(
-		'#(?P<start_tag><mathml>)(?P<formula>.+)(?P<end_tag></mathml>)#s',
+		'#(?P<start_tag><mathml>)(?P<formula>.+?)(?P<end_tag></mathml>)#s',
 		static function ( $matches ) {
 			if ( is_amp() ) {
 				return sprintf(
