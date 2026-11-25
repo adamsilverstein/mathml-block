@@ -1,1 +1,24 @@
+# Files left out of the WordPress.org release.
+/.git
 /.github
+/.wordpress-org
+/.storybook
+/.distignore
+/.gitignore
+/.eslintrc.json
+/.nvmrc
+.DS_Store
+/node_modules
+/tests
+/test-results
+/playwright-report
+/storybook-static
+/playwright.config.js
+/playwright.update.config.js
+/webpack.config.js
+/package.json
+/package-lock.json
+/composer.json
+/composer.lock
+/README.md
+/src/mathml-block.stories.js
